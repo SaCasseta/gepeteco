@@ -1,0 +1,29 @@
+/* Estilos similares ao de médicos, com ajustes de cores */
+body {
+    background-color: #f0f8ff;
+}
+
+.container {
+    background: white;
+    box-shadow: 0 0 10px rgba(0,100,255,0.1);
+}
+
+button {
+    background-color: #2ecc71;
+}
+
+button:hover {
+    background-color: #27ae60;
+}
+
+th {
+    background-color: #2ecc71;
+}
+
+.actions button:last-child {
+    background-color: #e74c3c;
+}
+
+.actions button:last-child:hover {
+    background-color: #c0392b;
+}

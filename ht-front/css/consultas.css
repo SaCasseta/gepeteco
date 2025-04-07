@@ -1,0 +1,29 @@
+/* Estilos similares, com tema roxo */
+body {
+    background-color: #f5f0ff;
+}
+
+.container {
+    background: white;
+    box-shadow: 0 0 10px rgba(100,0,255,0.1);
+}
+
+button {
+    background-color: #9b59b6;
+}
+
+button:hover {
+    background-color: #8e44ad;
+}
+
+th {
+    background-color: #9b59b6;
+}
+
+select, input[type="datetime-local"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
