@@ -4,73 +4,55 @@ import com.example.hospital.entity.Consulta;
 import com.example.hospital.repository.ConsultaRepository;
 import com.example.hospital.repository.MedicoRepository;
 import com.example.hospital.repository.PacienteRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 @RestController
-@RequestMapping("/consultas")
-@RequiredArgsConstructor
+@RequestMapping("/api/consultas")
 public class ConsultaController {
 
-    private final ConsultaRepository consultaRepository;
-    private final MedicoRepository medicoRepository;
-    private final PacienteRepository pacienteRepository;
+    @Autowired
+    private ConsultaRepository consultaRepository;
 
-    // RQ2: Agendar nova consulta
+    @Autowired
+    private MedicoRepository medicoRepository;
+
+    @Autowired
+    private PacienteRepository pacienteRepository;
+
+    @GetMapping("/medico/{medicoId}")
+    public List<Consulta> listarPorMedico(@PathVariable Long medicoId) {
+        return consultaRepository.findByMedicoId(medicoId); // RQ2, RQ3
+    }
+
+    @GetMapping("/paciente/{pacienteId}")
+    public List<Consulta> listarPorPaciente(@PathVariable Long pacienteId) {
+        return consultaRepository.findByPacienteId(pacienteId); // RQ4
+    }
+
     @PostMapping
     public ResponseEntity<Consulta> agendar(@RequestBody Consulta consulta) {
-        // Validações básicas
-        if (!medicoRepository.existsById(consulta.getMedico().getId())) {
-            throw new IllegalArgumentException("Médico não encontrado");
-        }
-        if (!pacienteRepository.existsById(consulta.getPaciente().getId())) {
-            throw new IllegalArgumentException("Paciente não encontrado");
-        }
-        return ResponseEntity.ok(consultaRepository.save(consulta));
+        return medicoRepository.findById(consulta.getMedico().getId())
+                .map(medico -> {
+                    pacienteRepository.findById(consulta.getPaciente().getId())
+                            .map(paciente -> {
+                                consulta.setMedico(medico);
+                                consulta.setPaciente(paciente);
+                                return ResponseEntity.ok(consultaRepository.save(consulta)); // RQ2, RQ5
+                            })
+                            .orElse(ResponseEntity.badRequest().build());
+                    return ResponseEntity.ok(consulta);
+                })
+                .orElse(ResponseEntity.badRequest().build());
     }
 
-    // RQ5: Agendar retorno
-    @PostMapping("/{id}/retorno")
-    public ResponseEntity<Consulta> agendarRetorno(
-            @PathVariable Long id,
-            @RequestParam LocalDateTime novaData) {
-
-        Consulta original = consultaRepository.findById(id).orElseThrow();
-        Consulta retorno = Consulta.builder()
-                .medico(original.getMedico())
-                .paciente(original.getPaciente())
-                .consultorio(original.getConsultorio())
-                .dataHora(novaData)
-                .valor(original.getValor())
-                .ehRetorno(true)
-                .build();
-
-        return ResponseEntity.ok(consultaRepository.save(retorno));
-    }
-
-    // RQ6: Gerar relatório financeiro
-    @GetMapping("/relatorio")
-    public ResponseEntity<Map<String, Object>> relatorio(
-            @RequestParam Long medicoId,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime inicio,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fim) {
-
-        List<Consulta> consultas = consultaRepository.findByMedicoIdAndDataHoraBetween(medicoId, inicio, fim);
-        BigDecimal total = consultas.stream()
-                .map(Consulta::getValor)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-
-        return ResponseEntity.ok(Map.of(
-                "totalConsultas", consultas.size(),
-                "valorTotal", total,
-                "periodo", inicio + " a " + fim
-        ));
+    @GetMapping("/relatorio-financeiro/{medicoId}")
+    public ResponseEntity<Double> relatorioFinanceiro(@PathVariable Long medicoId) {
+        List<Consulta> consultas = consultaRepository.findByMedicoId(medicoId);
+        double total = consultas.stream().mapToDouble(Consulta::getValor).sum();
+        return ResponseEntity.ok(total); // RQ6
     }
 }

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerenciar Consultas</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <h1>Gerenciar Consultas</h1>
+    <form id="consultaForm">
+        <select id="medicoId" required>
+            <option value="">Selecione um Médico</option>
+        </select>
+        <select id="pacienteId" required>
+            <option value="">Selecione um Paciente</option>
+        </select>
+        <input type="datetime-local" id="dataHora" required>
+        <input type="text" id="descricao" placeholder="Descrição">
+        <input type="number" id="valor" placeholder="Valor" step="0.01" required>
+        <label><input type="checkbox" id="retorno"> Retorno</label>
+        <button type="submit">Agendar</button>
+    </form>
+    <h2>Consultas por Médico</h2>
+    <select id="medicoConsulta" onchange="carregarConsultasPorMedico()">
+        <option value="">Selecione um Médico</option>
+    </select>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Data/Hora</th>
+                <th>Paciente</th>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>Retorno</th>
+            </tr>
+        </thead>
+        <tbody id="consultaTable"></tbody>
+    </table>
+    <h2>Relatório Financeiro</h2>
+    <select id="medicoRelatorio" onchange="carregarRelatorioFinanceiro()">
+        <option value="">Selecione um Médico</option>
+    </select>
+    <p>Total: R$ <span id="totalFinanceiro">0.00</span></p>
+    <script src="/js/consulta.js"></script>
+</body>
+</html>

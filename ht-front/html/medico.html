@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerenciar Médicos</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <h1>Gerenciar Médicos</h1>
+    <form id="medicoForm">
+        <input type="text" id="nome" placeholder="Nome" required>
+        <input type="text" id="especialidade" placeholder="Especialidade" required>
+        <input type="text" id="consultorio" placeholder="Consultório" required>
+        <button type="submit">Cadastrar</button>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Especialidade</th>
+                <th>Consultório</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="medicoTable"></tbody>
+    </table>
+    <script src="/js/medico.js"></script>
+</body>
+</html>

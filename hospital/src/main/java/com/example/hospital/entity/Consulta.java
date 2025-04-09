@@ -1,44 +1,26 @@
 package com.example.hospital.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Entity
 public class Consulta {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private LocalDateTime dataHora; // RQ2: Agendar em horários diferentes
+    private String descricao;
+    private boolean retorno; // RQ5: Marcar como retorno
+    private double valor; // RQ6: Relatório financeiro
 
-    // RQ2: Agendamento com médico
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "medico_id")
     private Medico medico;
 
-    // RQ3: Controle por paciente
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
-
-    // RQ1: Consultório utilizado
-    private String consultorio;
-
-    private LocalDateTime dataHora;
-    private BigDecimal valor;
-
-    // RQ5: Flag para retornos
-    private boolean ehRetorno;
-
-    // RQ6: Método auxiliar para relatório
-    public boolean isDentroPeriodo(LocalDateTime inicio, LocalDateTime fim) {
-        return dataHora.isAfter(inicio) && dataHora.isBefore(fim);
-    }
 }

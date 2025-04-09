@@ -1,59 +1,38 @@
 package com.example.hospital.controller;
 
+
 import com.example.hospital.entity.Medico;
 import com.example.hospital.repository.MedicoRepository;
-import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/medicos")
-@RequiredArgsConstructor
+@RequestMapping("/api/medicos")
 public class MedicoController {
 
-    private final MedicoRepository medicoRepository;
+    @Autowired
+    private MedicoRepository medicoRepository;
 
-    // POST - Criar médico
-    @PostMapping
-    public ResponseEntity<Medico> criarMedico(@RequestBody @Valid Medico medico) {
-        Medico saved = medicoRepository.save(medico);
-        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
-    }
-
-    // PUT - Atualizar médico
-    @PutMapping("/{id}")
-    public ResponseEntity<Medico> atualizarMedico(
-            @PathVariable Long id,
-            @RequestBody @Valid Medico medicoAtualizado) {
-
-        Medico medico = medicoRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Médico não encontrado"));
-
-        medico.setNome(medicoAtualizado.getNome());
-        medico.setCrm(medicoAtualizado.getCrm());
-        medico.setEspecialidade(medicoAtualizado.getEspecialidade());
-
-        return ResponseEntity.ok(medicoRepository.save(medico));
-    }
-
-    // DELETE - Remover médico
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarMedico(@PathVariable Long id) {
-        if (!medicoRepository.existsById(id)) {
-            throw new EntityNotFoundException("Médico não encontrado");
-        }
-        medicoRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    // GET - Listar todos (já existente)
     @GetMapping
-    public ResponseEntity<List<Medico>> listar() {
-        return ResponseEntity.ok(medicoRepository.findAll());
+    public List<Medico> listar() {
+        return medicoRepository.findAll();
+    }
+
+    @PostMapping
+    public Medico criar(@RequestBody Medico medico) {
+        return medicoRepository.save(medico);
+    }
+
+    @PutMapping("/{id}/consultorio")
+    public ResponseEntity<Medico> atualizarConsultorio(@PathVariable Long id, @RequestBody String consultorio) {
+        return medicoRepository.findById(id)
+                .map(medico -> {
+                    medico.setConsultorio(consultorio); // RQ1
+                    return ResponseEntity.ok(medicoRepository.save(medico));
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 }

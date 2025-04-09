@@ -1,114 +1,39 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema Hospitalar</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/ht-front/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title> Sistema de Gestão</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <div class="dashboard-container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="sidebar-header">
-                <h2><i class="fas fa-hospital me-2"></i>Clínica Saúde</h2>
-            </div>
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link active" href="medicos.html">
-                        <i class="fas fa-user-md me-2"></i>Médicos
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="pacientes.html">
-                        <i class="fas fa-user-injured me-2"></i>Pacientes
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="consultas.html">
-                        <i class="fas fa-calendar-check me-2"></i>Consultas
-                    </a>
-                </li>
-            </ul>
-            <div class="sidebar-footer">
-                <p class="version">v1.0.0</p>
-            </div>
-        </div>
-
-        <!-- Main Content -->
-        <div class="main-content">
-            <header class="dashboard-header">
-                <h1>Dashboard</h1>
-                <div class="user-profile">
-                    <span>Admin</span>
-                    <i class="fas fa-user-circle"></i>
+    <header>
+        <h1>Sistema de Gestão </h1>
+        <p>Bem-vindo ao sistema para médicos e pacientes</p>
+    </header>
+    <nav>
+        <a href="medico.html">Gerenciar Médicos</a>
+        <a href="paciente.html">Gerenciar Pacientes</a>
+        <a href="consulta.html">Gerenciar Consultas</a>
+    </nav>
+    <main>
+        <section class="intro">
+            <h2>O que você pode fazer?</h2>
+            <div class="cards">
+                <div class="card">
+                    <h3>Médicos</h3>
+                    <p>Gerencie consultórios, pacientes e consultas.</p>
                 </div>
-            </header>
-
-            <div class="content">
-                <div class="row">
-                    <!-- Card Médicos -->
-                    <div class="col-md-4">
-                        <div class="dashboard-card medicos-card">
-                            <div class="card-icon">
-                                <i class="fas fa-user-md"></i>
-                            </div>
-                            <h3>Médicos</h3>
-                            <p>Gerencie o cadastro de médicos</p>
-                            <a href="medicos.html" class="btn btn-outline-light">Acessar</a>
-                        </div>
-                    </div>
-
-                    <!-- Card Pacientes -->
-                    <div class="col-md-4">
-                        <div class="dashboard-card pacientes-card">
-                            <div class="card-icon">
-                                <i class="fas fa-user-injured"></i>
-                            </div>
-                            <h3>Pacientes</h3>
-                            <p>Gerencie o cadastro de pacientes</p>
-                            <a href="pacientes.html" class="btn btn-outline-light">Acessar</a>
-                        </div>
-                    </div>
-
-                    <!-- Card Consultas -->
-                    <div class="col-md-4">
-                        <div class="dashboard-card consultas-card">
-                            <div class="card-icon">
-                                <i class="fas fa-calendar-check"></i>
-                            </div>
-                            <h3>Consultas</h3>
-                            <p>Agende e visualize consultas</p>
-                            <a href="consultas.html" class="btn btn-outline-light">Acessar</a>
-                        </div>
-                    </div>
+                <div class="card">
+                    <h3>Pacientes</h3>
+                    <p>Cadastre e acompanhe o histórico dos pacientes.</p>
                 </div>
-
-                <div class="row mt-4">
-                    <div class="col-md-12">
-                        <div class="quick-actions">
-                            <h4><i class="fas fa-bolt me-2"></i>Ações Rápidas</h4>
-                            <div class="actions">
-                                <a href="medicos.html?action=create" class="btn btn-primary me-2">
-                                    <i class="fas fa-plus me-1"></i>Novo Médico
-                                </a>
-                                <a href="pacientes.html?action=create" class="btn btn-success me-2">
-                                    <i class="fas fa-plus me-1"></i>Novo Paciente
-                                </a>
-                                <a href="consultas.html?action=create" class="btn btn-info">
-                                    <i class="fas fa-plus me-1"></i>Nova Consulta
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                <div class="card">
+                    <h3>Consultas</h3>
+                    <p>Agende consultas e veja relatórios financeiros.</p>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/ht-front/js/index.js"></script>
+        </section>
+    </main>
 </body>
 </html>

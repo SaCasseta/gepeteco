@@ -1,166 +1,139 @@
-:root {
-    --primary-color: #3498db;
-    --secondary-color: #2ecc71;
-    --danger-color: #e74c3c;
-    --dark-color: #2c3e50;
-    --light-color: #ecf0f1;
+/* Reset e Estilos Gerais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f5f7fa;
-    margin: 0;
-    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
 }
 
-.dashboard-container {
-    display: flex;
-    min-height: 100vh;
-}
-
-.sidebar {
-    width: 250px;
-    background-color: var(--dark-color);
+/* Cabeçalho */
+header {
+    background-color: #007bff;
     color: white;
-    padding: 20px 0;
-    display: flex;
-    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 20px;
 }
 
-.sidebar-header {
-    padding: 0 20px 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+header h1 {
+    font-size: 2.5em;
 }
 
-.sidebar-header h2 {
-    font-size: 1.3rem;
-    margin: 0;
-    display: flex;
-    align-items: center;
+header p {
+    font-size: 1.2em;
+    margin-top: 10px;
 }
 
-.nav-link {
-    color: rgba(255, 255, 255, 0.8);
-    padding: 12px 20px;
-    margin: 5px 0;
-    border-radius: 0;
-    transition: all 0.3s;
-    display: flex;
-    align-items: center;
+/* Navegação */
+nav {
+    text-align: center;
+    margin-bottom: 30px;
 }
 
-.nav-link:hover, .nav-link.active {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: white;
+nav a {
     text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    margin: 0 15px;
+    padding: 10px 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
 }
 
-.nav-link i {
-    width: 24px;
+nav a:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Conteúdo Principal */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.intro h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
     text-align: center;
 }
 
-.main-content {
-    flex: 1;
-    background-color: #f5f7fa;
+.cards {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
-.dashboard-header {
+.card {
     background-color: white;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.user-profile {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.user-profile i {
-    font-size: 1.5rem;
-    color: var(--primary-color);
-}
-
-.content {
-    padding: 20px;
-}
-
-.dashboard-card {
-    background: white;
     border-radius: 10px;
-    padding: 25px;
-    height: 100%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    min-width: 250px;
+    padding: 20px;
     text-align: center;
-    border-top: 4px solid transparent;
+    transition: transform 0.3s;
 }
 
-.dashboard-card:hover {
+.card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-.medicos-card {
-    border-top-color: var(--primary-color);
+.card h3 {
+    color: #007bff;
+    margin-bottom: 10px;
 }
 
-.pacientes-card {
-    border-top-color: var(--secondary-color);
+.card p {
+    color: #666;
 }
 
-.consultas-card {
-    border-top-color: #9b59b6;
+/* Estilos das Tabelas (para outras páginas) */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
 }
 
-.card-icon {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-    color: var(--dark-color);
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
 }
 
-.dashboard-card h3 {
-    margin-top: 0;
-    color: var(--dark-color);
+th {
+    background-color: #007bff;
+    color: white;
 }
 
-.dashboard-card p {
-    color: #7f8c8d;
+/* Formulários (para outras páginas) */
+form {
     margin-bottom: 20px;
 }
 
-.quick-actions {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+input, select, button {
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }
 
-.quick-actions h4 {
-    color: var(--dark-color);
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
+button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-.sidebar-footer {
-    margin-top: auto;
-    padding: 20px;
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.6);
-    text-align: center;
-}
-
-@media (max-width: 768px) {
-    .dashboard-container {
-        flex-direction: column;
-    }
-    .sidebar {
-        width: 100%;
-        height: auto;
-    }
+button:hover {
+    background-color: #218838;
 }
